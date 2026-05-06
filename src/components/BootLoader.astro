@@ -32,15 +32,14 @@
   }
 
   .boot-container {
-    width: 90%;
-    max-width: 900px;
+    width: 100%;
+    height: 100%;
     font-family: 'Courier New', 'Fira Code', 'Consolas', monospace;
-    font-size: 12px;
-    line-height: 1.5;
+    font-size: 16px;
+    line-height: 1.7;
     color: #00ff41;
     overflow-y: auto;
-    max-height: 90vh;
-    padding: 20px;
+    padding: 60px;
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
@@ -50,11 +49,12 @@
   }
 
   .boot-header {
-    margin-bottom: 20px;
-    padding-bottom: 14px;
+    max-width: 900px;
+    margin: 0 auto 24px;
+    padding-bottom: 16px;
     border-bottom: 1px solid #1a3a1a;
     white-space: pre;
-    font-size: 11px;
+    font-size: 14px;
     color: #00cc33;
   }
 
@@ -62,6 +62,8 @@
     display: flex;
     flex-direction: column;
     gap: 3px;
+    max-width: 900px;
+    margin: 0 auto;
   }
 
   .boot-line {
@@ -82,21 +84,21 @@
     display: inline-block;
     background: #22c55e;
     color: #000;
-    padding: 0 6px;
+    padding: 0 8px;
     font-weight: bold;
-    font-size: 10px;
-    margin-right: 8px;
+    font-size: 12px;
+    margin-right: 10px;
     border-radius: 2px;
-    line-height: 1.6;
+    line-height: 1.8;
   }
 
   .boot-waiting {
     display: inline-block;
     color: #eab308;
-    padding: 0 6px;
+    padding: 0 8px;
     font-weight: bold;
-    font-size: 10px;
-    margin-right: 8px;
+    font-size: 12px;
+    margin-right: 10px;
   }
 
   .boot-text-muted {
@@ -116,6 +118,9 @@
     margin-top: 16px;
     color: #00ff41;
     white-space: pre;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   @keyframes blink {
@@ -134,7 +139,8 @@
 
   @media (max-width: 640px) {
     .boot-container {
-      font-size: 10px;
+      font-size: 13px;
+      padding: 30px 20px;
     }
 
     .boot-line {
@@ -243,32 +249,17 @@
         'Starting Docker daemon (containerd runtime)',
         'Initializing kubelet service on all worker nodes',
         'Loading kube-apiserver... listening on port 6443',
-        'Starting kube-scheduler and kube-controller-manager',
-        'Initializing CoreDNS... 3 pods running',
-        'Loading Calico CNI network plugin... pod network ready',
         'Starting etcd distributed store... cluster healthy',
         'Initializing Kubernetes cluster... 3 nodes ready',
-        'Loading metrics-server for resource monitoring',
-        'Deploying ingress-nginx controller... ready',
         'Starting Jenkins CI/CD pipeline',
         'Loading AWS services: EC2, RDS, S3',
         'Starting monitoring: Grafana, ELK Stack',
         'Initializing Graylog log aggregation',
-        'Loading New Relic APM',
-        'Starting Nagios system monitor',
         'Starting Nginx reverse proxy',
-        'Initializing Apache web server',
-        'Loading MySQL database engine',
-        'Starting GitLab repository service',
-        'Initializing Python 3.12 runtime',
-        'Mounting virtualization layer: VMware, VirtualBox',
         'PFsense firewall: ACTIVE',
         'Ansible playbooks: loaded',
         'NFS Server/Client: mounted',
         'Network Engineer module: loaded <span class="boot-text-highlight">(90%)</span>',
-        'System Engineer module: loaded <span class="boot-text-highlight">(85%)</span>',
-        'Linux Admin module: loaded <span class="boot-text-highlight">(75%)</span>',
-        'AWS Cloud module: loaded <span class="boot-text-highlight">(80%)</span>',
         'DevOps module: initializing <span class="boot-text-highlight">(50%)</span>',
       ];
       for (const svc of services) {
