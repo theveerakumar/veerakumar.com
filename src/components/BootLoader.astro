@@ -1,0 +1,303 @@
+---
+---
+
+<div id="bootloader" class="bootloader">
+  <div class="boot-container">
+    <div id="boot-header" class="boot-header"></div>
+    <div id="boot-lines" class="boot-lines"></div>
+    <div id="boot-prompt" class="boot-prompt" style="display: none;"></div>
+  </div>
+</div>
+
+<style>
+  .bootloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0a0a0a;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+    cursor: pointer;
+  }
+
+  .bootloader.fade-out {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .boot-container {
+    width: 90%;
+    max-width: 900px;
+    font-family: 'Courier New', 'Fira Code', 'Consolas', monospace;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #00ff41;
+    overflow-y: auto;
+    max-height: 90vh;
+    padding: 20px;
+  }
+
+  .boot-header {
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #1a3a1a;
+    white-space: pre;
+    font-size: 14px;
+    color: #00cc33;
+  }
+
+  .boot-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .boot-line {
+    opacity: 0;
+    transform: translateY(2px);
+    transition: opacity 0.15s ease, transform 0.15s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .boot-line.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .boot-ok {
+    display: inline-block;
+    background: #22c55e;
+    color: #000;
+    padding: 0 8px;
+    font-weight: bold;
+    font-size: 12px;
+    margin-right: 10px;
+    border-radius: 2px;
+    line-height: 1.8;
+  }
+
+  .boot-waiting {
+    display: inline-block;
+    color: #eab308;
+    padding: 0 8px;
+    font-weight: bold;
+    font-size: 12px;
+    margin-right: 10px;
+  }
+
+  .boot-text-muted {
+    color: #6b8f6b;
+  }
+
+  .boot-text-highlight {
+    color: #4ade80;
+    font-weight: 600;
+  }
+
+  .boot-text-dim {
+    color: #4a6b4a;
+  }
+
+  .boot-prompt {
+    margin-top: 16px;
+    color: #00ff41;
+    white-space: pre;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  .main-content {
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+
+  .main-content.visible {
+    opacity: 1;
+  }
+
+  @media (max-width: 640px) {
+    .boot-container {
+      font-size: 12px;
+    }
+
+    .boot-line {
+      white-space: normal;
+      word-break: break-word;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    if (sessionStorage.getItem('bootSeen')) {
+      const bl = document.getElementById('bootloader');
+      if (bl) bl.style.display = 'none';
+      const mc = document.querySelector('.main-content');
+      if (mc) mc.classList.add('visible');
+      return;
+    }
+
+    const bootlines = document.getElementById('boot-lines');
+    const bootprompt = document.getElementById('boot-prompt');
+    const botheader = document.getElementById('boot-header');
+    const bootloader = document.getElementById('bootloader');
+    let skipped = false;
+
+    botheader.textContent = `╔══════════════════════════════════════════════════╗
+║        VeeraKumar-OS v2026.1                    ║
+║        GNU/Linux 6.1.0-generic | amd64          ║
+╚══════════════════════════════════════════════════╝`;
+
+    const statusEl = (status, text, className = '') => {
+      const line = document.createElement('div');
+      line.className = 'boot-line';
+      const badge = status === 'OK'
+        ? '<span class="boot-ok">[ OK ]</span>'
+        : '<span class="boot-waiting">[....]</span>';
+      line.innerHTML = `${badge}<span class="${className}">${text}</span>`;
+      bootlines.appendChild(line);
+      requestAnimationFrame(() => line.classList.add('visible'));
+      bootlines.scrollTop = bootlines.scrollHeight;
+      return line;
+    };
+
+    const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+
+    const skip = () => {
+      if (skipped) return;
+      skipped = true;
+      sessionStorage.setItem('bootSeen', 'true');
+      bootloader?.classList.add('fade-out');
+      const mc = document.querySelector('.main-content');
+      if (mc) mc.classList.add('visible');
+      setTimeout(() => bootloader?.remove(), 600);
+    };
+
+    document.addEventListener('keydown', skip, { once: true });
+    bootloader?.addEventListener('click', skip);
+
+    const fetchIP = async () => {
+      try {
+        const res = await fetch('https://ip-api.com/json/?fields=status,message,query,city,region,country,zip,lat,lon,timezone,isp');
+        const data = await res.json();
+        if (data.status === 'success') {
+          return {
+            ip: data.query,
+            location: `${data.city}, ${data.region}`,
+            country: data.country,
+            coords: `${data.lat.toFixed(4)}°${data.lat >= 0 ? 'N' : 'S'}, ${data.lon.toFixed(4)}°${data.lon >= 0 ? 'E' : 'W'}`,
+            timezone: data.timezone,
+          };
+        }
+      } catch (e) {}
+      return null;
+    };
+
+    const ipPromise = fetchIP();
+
+    const stage1 = async () => {
+      await wait(600);
+      statusEl('OK', 'Starting VeeraKumar-OS');
+      await wait(400);
+      statusEl('OK', 'Loading kernel: networking.ko, cloud.ko, devops.ko');
+      await wait(350);
+      statusEl('OK', 'Initializing network interfaces... eth0 UP');
+      await wait(300);
+      statusEl('OK', 'Mounting /dev/digitalocean on /cloud');
+      await wait(250);
+      const waitingLine = statusEl('WAIT', 'Detecting client IP and geolocation...', 'boot-text-muted');
+      const ipData = await ipPromise;
+      await wait(200);
+      waitingLine.remove();
+      if (ipData) {
+        statusEl('OK', `Client: <span class="boot-text-highlight">${ipData.ip}</span> | ${ipData.location}, ${ipData.country}`);
+        await wait(300);
+        statusEl('OK', `Location triangulated: <span class="boot-text-highlight">${ipData.coords}</span>`);
+        await wait(300);
+        statusEl('OK', `Timezone set to <span class="boot-text-highlight">${ipData.timezone}</span> | Latency: ${Math.floor(Math.random() * 30 + 5)}ms`);
+      } else {
+        statusEl('OK', 'Network detection complete');
+      }
+      await wait(300);
+    };
+
+    const stage2 = async () => {
+      const services = [
+        'Starting Docker daemon (containerd runtime)',
+        'Initializing kubelet service on all worker nodes',
+        'Loading kube-apiserver... listening on port 6443',
+        'Starting kube-scheduler and kube-controller-manager',
+        'Initializing CoreDNS... 3 pods running',
+        'Loading Calico CNI network plugin... pod network ready',
+        'Starting etcd distributed store... cluster healthy',
+        'Initializing Kubernetes cluster... 3 nodes ready',
+        'Loading metrics-server for resource monitoring',
+        'Deploying ingress-nginx controller... ready',
+        'Starting Jenkins CI/CD pipeline',
+        'Loading AWS services: EC2, RDS, S3',
+        'Starting monitoring: Grafana, ELK Stack',
+        'Initializing Graylog log aggregation',
+        'Loading New Relic APM',
+        'Starting Nagios system monitor',
+        'Starting Nginx reverse proxy',
+        'Initializing Apache web server',
+        'Loading MySQL database engine',
+        'Starting GitLab repository service',
+        'Initializing Python 3.12 runtime',
+        'Mounting virtualization layer: VMware, VirtualBox',
+        'PFsense firewall: ACTIVE',
+        'Ansible playbooks: loaded',
+        'NFS Server/Client: mounted',
+        'Network Engineer module: loaded <span class="boot-text-highlight">(90%)</span>',
+        'System Engineer module: loaded <span class="boot-text-highlight">(85%)</span>',
+        'Linux Admin module: loaded <span class="boot-text-highlight">(75%)</span>',
+        'AWS Cloud module: loaded <span class="boot-text-highlight">(80%)</span>',
+        'DevOps module: initializing <span class="boot-text-highlight">(50%)</span>',
+      ];
+      for (const svc of services) {
+        if (skipped) return;
+        statusEl('OK', svc);
+        await wait(280 + Math.random() * 140);
+      }
+      await wait(300);
+    };
+
+    const stage3 = async () => {
+      statusEl('OK', 'All services started');
+      await wait(500);
+      bootprompt.style.display = 'block';
+      const line1 = document.createElement('div');
+      line1.className = 'boot-line';
+      line1.innerHTML = '<span class="boot-text-highlight">root@veerakumar</span>:<span class="boot-text-dim">~</span>$ <span class="boot-text-highlight">launch_portfolio --mode=awesome</span>';
+      bootprompt.appendChild(line1);
+      requestAnimationFrame(() => line1.classList.add('visible'));
+      await wait(600);
+      const line2 = document.createElement('div');
+      line2.className = 'boot-line';
+      line2.innerHTML = '&gt; Loading portfolio... <span class="boot-text-highlight">Done.</span>';
+      bootprompt.appendChild(line2);
+      requestAnimationFrame(() => line2.classList.add('visible'));
+      await wait(1000);
+      if (!skipped) skip();
+    };
+
+    const runBoot = async () => {
+      await stage1();
+      if (!skipped) await stage2();
+      if (!skipped) await stage3();
+    };
+
+    runBoot();
+  });
+</script>

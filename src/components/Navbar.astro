@@ -1,0 +1,62 @@
+---
+---
+
+<nav class="navbar" id="navbar">
+  <a href="#home" class="nav-logo">&gt; VK</a>
+  <button class="nav-hamburger" id="hamburger" aria-label="Toggle navigation">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#home" class="nav-link active">home</a></li>
+    <li><a href="#about" class="nav-link">about</a></li>
+    <li><a href="#resume" class="nav-link">resume</a></li>
+    <li><a href="#portfolio" class="nav-link">portfolio</a></li>
+    <li><a href="#contact" class="nav-link">connect</a></li>
+  </ul>
+</nav>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  const navLinksItems = document.querySelectorAll('.nav-link');
+  const navbar = document.getElementById('navbar');
+
+  hamburger?.addEventListener('click', () => {
+    navLinks?.classList.toggle('open');
+    hamburger.classList.toggle('open');
+  });
+
+  navLinksItems?.forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks?.classList.remove('open');
+      hamburger?.classList.remove('open');
+    });
+  });
+
+  const observerOptions = {
+    root: null,
+    rootMargin: '-20% 0px -80% 0px',
+    threshold: 0
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinksItems?.forEach(link => link.classList.remove('active'));
+        const id = entry.target.getAttribute('id');
+        const activeLink = document.querySelector(`.nav-link[href="#${id}"]`);
+        activeLink?.classList.add('active');
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('section[id]')?.forEach(section => {
+    observer.observe(section);
+  });
+
+  window.addEventListener('scroll', () => {
+    navbar?.classList.toggle('scrolled', window.scrollY > 50);
+  });
+</script>

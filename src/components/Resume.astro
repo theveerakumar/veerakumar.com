@@ -1,0 +1,127 @@
+---
+---
+
+<section id="resume" class="section">
+  <div class="section-header animate-on-scroll">
+    <h2 class="section-title"><span class="prompt">$</span> git log --oneline</h2>
+    <div class="section-underline"></div>
+  </div>
+  
+  <div class="resume-grid">
+    <div class="resume-columns">
+      <div class="resume-column" style="margin-bottom: var(--spacing-xl);">
+        <h3><span class="prompt">></span> Education</h3>
+        <div class="timeline">
+          <div class="timeline-item animate-on-scroll">
+            <span class="timeline-date">2015</span>
+            <h4 class="timeline-title">B.E Computer Science</h4>
+            <p class="timeline-company">Oriental Institute of Science and Technology</p>
+          </div>
+          <div class="timeline-item animate-on-scroll">
+            <span class="timeline-date">2009</span>
+            <h4 class="timeline-title">A+ Computer Hardware and Networking</h4>
+            <p class="timeline-company">Vishwatech Webdesign</p>
+          </div>
+          <div class="timeline-item animate-on-scroll">
+            <span class="timeline-date">2008-2009</span>
+            <h4 class="timeline-title">12th CBSE Board</h4>
+            <p class="timeline-company">Vikram Higher Secondary School</p>
+          </div>
+          <div class="timeline-item animate-on-scroll">
+            <span class="timeline-date">2005-2006</span>
+            <h4 class="timeline-title">10th CBSE Board</h4>
+            <p class="timeline-company">Vikram Higher Secondary School</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="resume-column">
+        <h3><span class="prompt">></span> Experience</h3>
+        <div class="timeline">
+          <div class="timeline-item animate-on-scroll">
+            <span class="timeline-date">2020 - Present</span>
+            <h4 class="timeline-title">Senior Cloud Support Engineer</h4>
+            <p class="timeline-company">DigitalOcean</p>
+          </div>
+          <div class="timeline-item animate-on-scroll">
+            <span class="timeline-date">2019 - 2020</span>
+            <h4 class="timeline-title">DevOps Engineer</h4>
+            <p class="timeline-company">Iqlect Software Solutions Pvt. Ltd.</p>
+          </div>
+          <div class="timeline-item animate-on-scroll">
+            <span class="timeline-date">2016 - 2018</span>
+            <h4 class="timeline-title">Technical Support Engineer (NSG)</h4>
+            <p class="timeline-company">Sophos Technologies Pvt. Ltd.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="resume-column">
+      <h3><span class="prompt">></span> Skills</h3>
+      <div class="skills-list">
+        <div class="skill-item animate-on-scroll">
+          <span class="skill-name">Network Eng.</span>
+          <div class="skill-bar-container">
+            <div class="skill-bar"><div class="skill-fill" style="--skill-percent: 90%"></div></div>
+            <span class="skill-percent">90%</span>
+          </div>
+        </div>
+        <div class="skill-item animate-on-scroll">
+          <span class="skill-name">System Eng.</span>
+          <div class="skill-bar-container">
+            <div class="skill-bar"><div class="skill-fill" style="--skill-percent: 85%"></div></div>
+            <span class="skill-percent">85%</span>
+          </div>
+        </div>
+        <div class="skill-item animate-on-scroll">
+          <span class="skill-name">AWS</span>
+          <div class="skill-bar-container">
+            <div class="skill-bar"><div class="skill-fill" style="--skill-percent: 80%"></div></div>
+            <span class="skill-percent">80%</span>
+          </div>
+        </div>
+        <div class="skill-item animate-on-scroll">
+          <span class="skill-name">Linux Admin</span>
+          <div class="skill-bar-container">
+            <div class="skill-bar"><div class="skill-fill" style="--skill-percent: 75%"></div></div>
+            <span class="skill-percent">75%</span>
+          </div>
+        </div>
+        <div class="skill-item animate-on-scroll">
+          <span class="skill-name">Jenkins</span>
+          <div class="skill-bar-container">
+            <div class="skill-bar"><div class="skill-fill" style="--skill-percent: 70%"></div></div>
+            <span class="skill-percent">70%</span>
+          </div>
+        </div>
+        <div class="skill-item animate-on-scroll">
+          <span class="skill-name">DevOps</span>
+          <div class="skill-bar-container">
+            <div class="skill-bar"><div class="skill-fill" style="--skill-percent: 50%"></div></div>
+            <span class="skill-percent">50%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animated');
+        if (entry.target.classList.contains('skill-item')) {
+          const skillFill = entry.target.querySelector('.skill-fill');
+          if (skillFill) setTimeout(() => skillFill.classList.add('animated'), 300);
+        }
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.animate-on-scroll').forEach(el => {
+    observer.observe(el);
+  });
+</script>

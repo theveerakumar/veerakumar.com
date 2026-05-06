@@ -1,0 +1,128 @@
+---
+---
+
+<section id="portfolio" class="section">
+  <div class="section-header centered animate-on-scroll">
+    <h2 class="section-title"><span class="prompt">$</span> ls -la ./portfolio/</h2>
+    <p class="section-subtitle">Projects completed and ongoing</p>
+    <div class="section-underline"></div>
+  </div>
+  
+  <div class="portfolio-grid">
+    <div class="portfolio-card animate-on-scroll">
+      <div class="portfolio-card-header">
+        <div>
+          <h3 class="portfolio-card-title">Nginx Reverse Proxy for Kubernetes</h3>
+          <span class="portfolio-card-date">25 Apr 2019</span>
+        </div>
+      </div>
+      <p class="portfolio-card-content">Configured RHEL based Centos distribution as Reverse Proxy using Nginx webserver, for using Kubernetes outside the network. Updated corresponding firewall rules to allow only HTTP and HTTPS traffic.</p>
+      <span class="portfolio-card-client">Freelancing Client</span>
+    </div>
+    
+    <div class="portfolio-card animate-on-scroll">
+      <div class="portfolio-card-header">
+        <div>
+          <h3 class="portfolio-card-title">Docker Infrastructure with Ansible</h3>
+          <span class="portfolio-card-date">Ongoing</span>
+        </div>
+      </div>
+      <p class="portfolio-card-content">Building infrastructure for application provisioning using Docker which includes NFS Server/Client, Jenkins, GitLab. Everything will be configured using Ansible playbooks.</p>
+      <span class="portfolio-card-client">Freelancing Client</span>
+    </div>
+    
+    <div class="portfolio-card animate-on-scroll">
+      <div class="portfolio-card-header">
+        <div>
+          <h3 class="portfolio-card-title">Amazon SES SMTP Server</h3>
+          <span class="portfolio-card-date">26 May 2019</span>
+        </div>
+      </div>
+      <p class="portfolio-card-content">Configured SMTP server using Amazon SES for sending promotional mails to the end customers, with a sending limit of 50,000 mails per day.</p>
+      <span class="portfolio-card-client">Freelancing Client</span>
+    </div>
+    
+    <div class="portfolio-card animate-on-scroll">
+      <div class="portfolio-card-header">
+        <div>
+          <h3 class="portfolio-card-title">Government Site Network Troubleshooting</h3>
+          <span class="portfolio-card-date">29 Aug 2014</span>
+        </div>
+      </div>
+      <p class="portfolio-card-content">Troubleshooted internet not working on a Gov Site where whole Block was disconnected from the Intranet and Internet. It took complete 1 week to identify the issue. It was caused by faulty media converter.</p>
+      <span class="portfolio-card-client">Onsite Work</span>
+    </div>
+    
+    <div class="portfolio-card animate-on-scroll">
+      <div class="portfolio-card-header">
+        <div>
+          <h3 class="portfolio-card-title">eGovernance RHEL/CentOS Deployment</h3>
+          <span class="portfolio-card-date">19 Sep 2012</span>
+        </div>
+      </div>
+      <p class="portfolio-card-content">Deployed and managed over 20 RHEL based CENTOS Server for an eGovernance project which was totally deployed on virtual environment to save the windows licensing and deployment time.</p>
+      <span class="portfolio-card-client">Onsite Work</span>
+    </div>
+    
+    <div class="portfolio-card animate-on-scroll">
+      <div class="portfolio-card-header">
+        <div>
+          <h3 class="portfolio-card-title">NGO & Training Institute Websites</h3>
+          <span class="portfolio-card-date">08 Mar 2015</span>
+        </div>
+      </div>
+      <p class="portfolio-card-content">Created websites for NGOs and Training institutes.</p>
+      <span class="portfolio-card-client">Local Freelance</span>
+    </div>
+    
+    <div class="portfolio-card animate-on-scroll">
+      <div class="portfolio-card-header">
+        <div>
+          <h3 class="portfolio-card-title">42U Rack Provisioning for Pizza Chain</h3>
+          <span class="portfolio-card-date">19-20 Jan 2015</span>
+        </div>
+      </div>
+      <p class="portfolio-card-content">Provisioned a complete 42U Rack for a pizza delivery chain. Deployed Windows Server and used Ubuntu for the Clients. Created a NAS and added POS Printers for the billing.</p>
+      <span class="portfolio-card-client">Onsite Work</span>
+    </div>
+    
+    <div class="portfolio-card animate-on-scroll">
+      <div class="portfolio-card-header">
+        <div>
+          <h3 class="portfolio-card-title">College Network STAR Topology Fix</h3>
+          <span class="portfolio-card-date">23 Sep 2014</span>
+        </div>
+      </div>
+      <p class="portfolio-card-content">Troubleshooted a Complete Network based on STAR Topology which consisted of 450+ Computers for a local college. Due to Network looping whole network was standstill.</p>
+      <span class="portfolio-card-client">Onsite Work</span>
+    </div>
+    
+    <div class="portfolio-card animate-on-scroll">
+      <div class="portfolio-card-header">
+        <div>
+          <h3 class="portfolio-card-title">PFsense Firewall PKI Deployment</h3>
+          <span class="portfolio-card-date">23 Apr 2019</span>
+        </div>
+      </div>
+      <p class="portfolio-card-content">Deployed Pfsense firewall at Gateway to allow network access using the public/private key PKI infrastructure. Implemented best security measures to block botnet attacks.</p>
+      <span class="portfolio-card-client">Freelancing Client</span>
+    </div>
+  </div>
+</section>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('animated');
+        }, index * 50);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.animate-on-scroll').forEach(el => {
+    observer.observe(el);
+  });
+</script>
