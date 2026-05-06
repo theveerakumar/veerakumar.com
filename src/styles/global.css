@@ -2,7 +2,7 @@
    Global Styles - Terminal Theme
    ============================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&family=Ubuntu+Mono:wght@400;700&display=swap');
 
 :root {
   --bg-primary: #0a0a0a;
@@ -27,8 +27,8 @@
   --shadow-hover: 0 12px 40px rgba(0, 255, 65, 0.12);
   --shadow-glow: 0 0 20px rgba(0, 255, 65, 0.15);
 
-  --font-heading: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
-  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-heading: 'Ubuntu Mono', 'Courier New', monospace;
+  --font-body: 'Ubuntu', 'Segoe UI', sans-serif;
 
   --spacing-xs: 0.5rem;
   --spacing-sm: 1rem;
@@ -229,7 +229,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: var(--spacing-xs);
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
 }
 
 .hero-role {
@@ -256,7 +256,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: var(--spacing-sm);
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
 }
 
 .social-pill {
@@ -354,7 +354,7 @@ body {
 }
 
 .section-header {
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
 }
 
 .section-header.centered {
@@ -382,7 +382,7 @@ body {
   width: 40px;
   height: 3px;
   background: var(--text-primary);
-  margin-top: var(--spacing-sm);
+  margin-top: var(--spacing-xs);
   border-radius: 1px;
 }
 
@@ -448,7 +448,7 @@ body {
   border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
   padding: var(--spacing-lg);
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
 }
 
 .about-bio .terminal-card-header {
@@ -476,7 +476,7 @@ body {
 .about-cards {
   display: grid;
   grid-template-columns: 1.2fr 0.9fr 0.9fr;
-  gap: var(--spacing-md);
+  gap: var(--spacing-sm);
 }
 
 .about-card-list {
@@ -538,7 +538,7 @@ body {
 .resume-grid {
   display: grid;
   grid-template-columns: 1.5fr 1fr;
-  gap: var(--spacing-xl);
+  gap: var(--spacing-lg);
 }
 
 .resume-column h3 {
@@ -685,7 +685,7 @@ body {
 .portfolio-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: var(--spacing-md);
+  gap: var(--spacing-sm);
 }
 
 .portfolio-card {
@@ -788,7 +788,7 @@ body {
 .contact-message {
   color: var(--text-secondary);
   font-size: 1rem;
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
   line-height: 1.8;
   max-width: 600px;
   margin-left: auto;
