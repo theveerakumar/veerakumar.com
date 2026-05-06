@@ -2,16 +2,23 @@
 ---
 
 <section id="home" class="hero">
+  <div class="hero-tux" aria-hidden="true">
+    <pre>
+        .--.
+       |o_o |
+       |:_/ |
+      //   \ \
+     (|     | )
+     /'\_   _/`\
+     \___)=(___/</pre>
+  </div>
   <div class="hero-grid">
     <div class="hero-content">
       <p class="hero-greeting animate-on-scroll"><span class="prompt">$</span> echo "Hey! Folks"<span class="cursor">_</span></p>
       <h1 class="hero-name animate-on-scroll">I'm Veera Kumar<span class="prompt">.</span></h1>
       
-      <div class="hero-roles animate-on-scroll">
-        <span class="hero-role">[ Network Engineer ]</span>
-        <span class="hero-role">[ IT Consultant ]</span>
-        <span class="hero-role">[ Cloud Enthusiast ]</span>
-        <span class="hero-role">[ Traveller ]</span>
+      <div class="hero-role-container animate-on-scroll">
+        <span class="prompt">$</span> whoami → <span id="cycling-role"></span><span class="cursor">_</span>
       </div>
       
       <div class="hero-socials animate-on-scroll">
@@ -57,4 +64,36 @@
   document.querySelectorAll('.animate-on-scroll').forEach(el => {
     observer.observe(el);
   });
+
+  const roles = ['Network Engineer', 'IT Consultant', 'Cloud Enthusiast', 'Traveller'];
+  let roleIndex = 0, charIndex = 0, isDeleting = false;
+
+  function typeRole() {
+    const current = roles[roleIndex];
+    const el = document.getElementById('cycling-role');
+    if (!el) return;
+    
+    if (isDeleting) {
+      el.textContent = `[ ${current.substring(0, charIndex - 1)} ]`;
+      charIndex--;
+    } else {
+      el.textContent = `[ ${current.substring(0, charIndex + 1)} ]`;
+      charIndex++;
+    }
+    
+    let speed = isDeleting ? 40 : 60;
+    
+    if (!isDeleting && charIndex === current.length) {
+      speed = 1800;
+      isDeleting = true;
+    } else if (isDeleting && charIndex === 0) {
+      isDeleting = false;
+      roleIndex = (roleIndex + 1) % roles.length;
+      speed = 500;
+    }
+    
+    setTimeout(typeRole, speed);
+  }
+
+  setTimeout(typeRole, 1000);
 </script>
