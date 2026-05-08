@@ -8,7 +8,8 @@
     <div class="section-underline"></div>
   </div>
   
-  <div class="portfolio-grid">
+  <div class="portfolio-carousel-container">
+    <div class="portfolio-carousel" id="portfolioCarousel">
     <div class="portfolio-card animate-on-scroll">
       <div class="portfolio-card-header">
         <div>
@@ -107,22 +108,54 @@
       <p class="portfolio-card-content">Deployed Pfsense firewall at Gateway to allow network access using the public/private key PKI infrastructure. Implemented best security measures to block botnet attacks.</p>
       <span class="portfolio-card-client">Freelancing Client</span>
     </div>
+    </div>
+    <div class="portfolio-dots" id="portfolioDots"></div>
   </div>
 </section>
 
 <script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, index) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => {
-          entry.target.classList.add('animated');
-        }, index * 50);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
+  const carousel = document.getElementById('portfolioCarousel');
+  const dotsContainer = document.getElementById('portfolioDots');
+  const cards = document.querySelectorAll('.portfolio-card');
+  let currentIndex = 0;
+  let autoScrollInterval;
 
-  document.querySelectorAll('.animate-on-scroll').forEach(el => {
-    observer.observe(el);
+  cards.forEach((_, i) => {
+    const dot = document.createElement('span');
+    dot.className = `dot ${i === 0 ? 'active' : ''}`;
+    dot.addEventListener('click', () => scrollToCard(i));
+    dotsContainer.appendChild(dot);
   });
+
+  function scrollToCard(index) {
+    currentIndex = index;
+    cards[index].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const card = entry.target;
+      const idx = Array.from(cards).indexOf(card);
+      card.classList.toggle('active', entry.isIntersecting);
+      dotsContainer.children[idx]?.classList.toggle('active', entry.isIntersecting);
+      if (entry.isIntersecting) currentIndex = idx;
+    });
+  }, { root: carousel, threshold: 0.7 });
+
+  cards.forEach(card => observer.observe(card));
+
+  function startAutoScroll() {
+    clearInterval(autoScrollInterval);
+    autoScrollInterval = setInterval(() => {
+      currentIndex = (currentIndex + 1) % cards.length;
+      scrollToCard(currentIndex);
+    }, 3000);
+  }
+
+  carousel.addEventListener('mouseenter', () => clearInterval(autoScrollInterval));
+  carousel.addEventListener('mouseleave', startAutoScroll);
+  carousel.addEventListener('touchstart', () => clearInterval(autoScrollInterval));
+  carousel.addEventListener('touchend', startAutoScroll);
+
+  startAutoScroll();
 </script>
