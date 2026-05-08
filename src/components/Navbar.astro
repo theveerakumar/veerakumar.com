@@ -2,6 +2,7 @@
 ---
 
 <nav class="navbar" id="navbar">
+  <a href="#home" class="skip-link">Skip to content</a>
   <a href="#home" class="nav-logo">&gt; VK</a>
   <button class="nav-hamburger" id="hamburger" aria-label="Toggle navigation">
     <span></span>
@@ -15,6 +16,7 @@
     <li><a href="#portfolio" class="nav-link">portfolio</a></li>
     <li><a href="#contact" class="nav-link">connect</a></li>
   </ul>
+  <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">◑</button>
 </nav>
 
 <script>
@@ -58,5 +60,19 @@
 
   window.addEventListener('scroll', () => {
     navbar?.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  const themeToggle = document.getElementById('theme-toggle');
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+  themeToggle?.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? '' : 'light';
+    if (next) {
+      document.documentElement.setAttribute('data-theme', next);
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+    }
+    localStorage.setItem('theme', next || 'dark');
   });
 </script>

@@ -123,6 +123,8 @@
   cards.forEach((_, i) => {
     const dot = document.createElement('span');
     dot.className = `dot ${i === 0 ? 'active' : ''}`;
+    dot.setAttribute('aria-label', `Go to project ${i + 1}`);
+    if (i === 0) dot.setAttribute('aria-current', 'true');
     dot.addEventListener('click', () => scrollToCard(i));
     dotsContainer.appendChild(dot);
   });
@@ -137,7 +139,11 @@
       const card = entry.target;
       const idx = Array.from(cards).indexOf(card);
       card.classList.toggle('active', entry.isIntersecting);
-      dotsContainer.children[idx]?.classList.toggle('active', entry.isIntersecting);
+      const dot = dotsContainer.children[idx];
+      if (dot) {
+        dot.classList.toggle('active', entry.isIntersecting);
+        dot.setAttribute('aria-current', entry.isIntersecting ? 'true' : 'false');
+      }
       if (entry.isIntersecting) currentIndex = idx;
     });
   }, { root: carousel, threshold: 0.7 });
@@ -149,7 +155,7 @@
     autoScrollInterval = setInterval(() => {
       currentIndex = (currentIndex + 1) % cards.length;
       scrollToCard(currentIndex);
-    }, 3000);
+    }, 5000);
   }
 
   carousel.addEventListener('mouseenter', () => clearInterval(autoScrollInterval));

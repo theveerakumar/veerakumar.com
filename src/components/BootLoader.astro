@@ -2,7 +2,7 @@
 ---
 
 <div id="bootloader" class="bootloader">
-  <div class="boot-container">
+  <div class="boot-container" aria-live="polite">
     <div id="boot-header" class="boot-header"></div>
     <div id="boot-lines" class="boot-lines"></div>
     <div id="boot-prompt" class="boot-prompt" style="display: none;"></div>
@@ -152,7 +152,7 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    if (sessionStorage.getItem('bootSeen')) {
+    if (localStorage.getItem('bootSeen')) {
       const bl = document.getElementById('bootloader');
       if (bl) bl.style.display = 'none';
       const mc = document.querySelector('.main-content');
@@ -189,7 +189,7 @@
     const skip = () => {
       if (skipped) return;
       skipped = true;
-      sessionStorage.setItem('bootSeen', 'true');
+      localStorage.setItem('bootSeen', 'true');
       bootloader?.classList.add('fade-out');
       const mc = document.querySelector('.main-content');
       if (mc) mc.classList.add('visible');

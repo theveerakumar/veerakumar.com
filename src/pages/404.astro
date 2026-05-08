@@ -1,0 +1,65 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 - Command Not Found | Veera Kumar</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+  <style>
+    body {
+      background: #0a0a0a;
+      color: #00ff41;
+      font-family: 'Courier New', monospace;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 2rem;
+    }
+    .container {
+      max-width: 600px;
+      text-align: center;
+    }
+    .prompt { color: #00ff41; }
+    .error { color: #ef4444; }
+    .muted { color: #4a6b4a; }
+    .box {
+      border: 1px solid #1a3a1a;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 2rem 0;
+    }
+    a {
+      color: #00ff41;
+      text-decoration: none;
+      border: 1px solid #00ff41;
+      padding: 0.8rem 1.5rem;
+      border-radius: 4px;
+      display: inline-block;
+      margin-top: 1rem;
+      transition: all 0.3s ease;
+      font-family: 'Courier New', monospace;
+    }
+    a:hover {
+      background: rgba(0, 255, 65, 0.1);
+      box-shadow: 0 0 20px rgba(0, 255, 65, 0.15);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <p class="prompt">$ cat /var/www/html/404.html</p>
+    <p class="error">cat: /var/www/html/404.html: No such file or directory</p>
+    <div class="box">
+      <p class="error" style="font-size: 1.5rem; font-weight: bold;">404</p>
+      <p class="prompt">Command Not Found</p>
+      <p class="muted">The requested resource does not exist on this system.</p>
+      <p class="muted">Try: <span class="prompt">$ cd /home</span></p>
+    </div>
+    <a href="/">> Back to Home</a>
+  </div>
+</body>
+</html>
