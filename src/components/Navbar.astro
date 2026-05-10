@@ -3,7 +3,9 @@
 
 <nav class="navbar" id="navbar">
   <a href="#home" class="skip-link">Skip to content</a>
-  <a href="#home" class="nav-logo">&gt; VK</a>
+  <a href="#home" class="nav-logo">
+    <span class="nav-logo-text">&gt; VEERA KUMAR</span><span class="nav-logo-cursor">_</span>
+  </a>
   <button class="nav-hamburger" id="hamburger" aria-label="Toggle navigation">
     <span></span>
     <span></span>
@@ -14,6 +16,14 @@
     <li><a href="#about" class="nav-link">about</a></li>
     <li><a href="#resume" class="nav-link">resume</a></li>
     <li><a href="#portfolio" class="nav-link">portfolio</a></li>
+    <li class="nav-item dropdown">
+      <a href="#utilities" class="nav-link">utilities <span class="dropdown-arrow">▼</span></a>
+      <ul class="dropdown-menu">
+        <li><a href="/stockalysis/" target="_blank" class="dropdown-link">stockalysis</a></li>
+        <li><a href="/stockvedic/" target="_blank" class="dropdown-link">stockvedic</a></li>
+        <li><a href="/seaborn/" target="_blank" class="dropdown-link">calculator</a></li>
+      </ul>
+    </li>
     <li><a href="#contact" class="nav-link">connect</a></li>
   </ul>
   <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">◑</button>
@@ -30,7 +40,8 @@
     hamburger.classList.toggle('open');
   });
 
-  navLinksItems?.forEach(link => {
+  const allNavItems = [...navLinksItems, ...document.querySelectorAll('.dropdown-link')];
+  allNavItems.forEach(link => {
     link.addEventListener('click', () => {
       navLinks?.classList.remove('open');
       hamburger?.classList.remove('open');
@@ -39,8 +50,8 @@
 
   const observerOptions = {
     root: null,
-    rootMargin: '-20% 0px -80% 0px',
-    threshold: 0
+    rootMargin: '0px',
+    threshold: 0.3
   };
 
   const observer = new IntersectionObserver((entries) => {
@@ -54,9 +65,13 @@
     });
   }, observerOptions);
 
-  document.querySelectorAll('section[id]')?.forEach(section => {
-    observer.observe(section);
-  });
+  window.scrollTo(0, 0);
+
+  setTimeout(() => {
+    document.querySelectorAll('section[id]')?.forEach(section => {
+      observer.observe(section);
+    });
+  }, 100);
 
   window.addEventListener('scroll', () => {
     navbar?.classList.toggle('scrolled', window.scrollY > 50);
