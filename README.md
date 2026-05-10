@@ -1,43 +1,66 @@
-# Astro Starter Kit: Minimal
+# Veera Kumar | Portfolio
 
-```sh
-npm create astro@latest -- --template minimal
+> Terminal-themed personal portfolio — [veerakumar.com](https://veerakumar.com)
+
+## Sections
+
+- **Boot Loader** — Fake system initialization on load
+- **Hero** — Profile intro with cycling role titles (Cloud Support Engineer, DevOps, etc.)
+- **About** — Bio with expandable terminal-card
+- **Resume** — Timeline (education + experience) + animated skill bars
+- **Portfolio** — Project carousel with dot navigation and auto-scroll
+- **Utilities** — App launcher cards for stock analysis & financial tools
+- **Contact** — Phone, email, LinkedIn
+- **404** — Terminal-themed "Command Not Found" page
+
+## Built With
+
+- [Astro](https://astro.build) 6 — Static site generation
+- Vanilla CSS — Terminal aesthetic, responsive, dark/light themes
+- Vanilla JS — Boot animation, intersection observers, carousel, theme toggle
+
+## Project Structure
+
+```
+src/
+├── components/     # Astro components
+│   ├── BootLoader.astro
+│   ├── Navbar.astro
+│   ├── Hero.astro
+│   ├── About.astro
+│   ├── Resume.astro
+│   ├── Portfolio.astro
+│   ├── Utilities.astro
+│   └── Contact.astro
+├── pages/
+│   ├── index.astro
+│   └── 404.astro
+└── styles/
+    └── global.css
+public/
+├── favicon.png
+└── robots.txt
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Commands
 
-## 🚀 Project Structure
+| Command                 | Action                           |
+| ----------------------- | -------------------------------- |
+| `npm install`           | Install dependencies             |
+| `npm run dev`           | Dev server at `localhost:4321`   |
+| `npm run build`         | Static site build → `dist/`      |
+| `npm run preview`       | Preview production build locally |
 
-Inside of your Astro project, you'll see the following folders and files:
+## Deploy
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+1. `npm run build`
+2. Copy `dist/*` into `theveerakumar.github.io`
+3. Commit and push the GitHub Pages repository
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Utilities
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+| App | Path | What it does |
+| --- | ---- | ------------ |
+| **Stockalysis** | `/stockalysis/` | Technical analysis dashboard — RSI, MACD, SMA/EMA, Bollinger Bands, Pivot Points, Fibonacci levels |
+| **StockVedic** | `/stockvedic/` | NSE stock dashboard — real-time quotes, historical charts, fundamentals (Screener.in), entry zone guidance, analyst consensus |
+| **Seaborn** | `/seaborn/` | Financial calculators — rental yield, EMI, affordability |
