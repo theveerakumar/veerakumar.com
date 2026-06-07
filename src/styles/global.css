@@ -936,6 +936,12 @@ body {
   color: #ef4444;
 }
 
+.footer-revision {
+  margin-top: var(--spacing-xs);
+  font-size: 0.7rem;
+  opacity: 0.5;
+}
+
 /* ============================================
    Animations
    ============================================ */

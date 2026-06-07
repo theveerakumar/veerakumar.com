@@ -1,4 +1,6 @@
 ---
+import { execSync } from 'child_process';
+const commitHash = execSync('git rev-parse --short HEAD').toString().trim();
 ---
 
 <section id="contact" class="section">
@@ -50,6 +52,7 @@
   <p class="footer-made">
     Made with <span class="footer-heart">&hearts;</span> and <span>&#9749;</span> in Bhopal by <strong>Veera Kumar</strong>
   </p>
+  <p class="footer-revision">rev: {commitHash}</p>
 </footer>
 
 <script>
